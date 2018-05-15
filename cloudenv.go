@@ -18,14 +18,14 @@ type CloudConfig struct {
 }
 
 type cloudprovider interface {
-	probe() func(r chan *CloudConfig)
+	probe(r chan *CloudConfig)
 }
 
 func Discover() *CloudConfig {
 	r := make(chan *CloudConfig, 1)
 	defer close(r)
 
-	providers := []*cloudprovider{
+	providers := []cloudprovider{
 		newAWSProvider(),
 		newGCPProvider(),
 	}

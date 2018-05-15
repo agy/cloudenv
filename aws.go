@@ -7,11 +7,11 @@ import (
 
 type awsProvider struct{}
 
-func newAWSProvider() *cloudprovider {
-	return new(awsProvider)
+func newAWSProvider() cloudprovider {
+	return awsProvider{}
 }
 
-func (p *awsProvider) probe(r chan *CloudConfig) {
+func (p awsProvider) probe(r chan *CloudConfig) {
 	s, _ := session.NewSession()
 	metadata := ec2metadata.New(s)
 

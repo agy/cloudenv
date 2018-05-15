@@ -8,11 +8,11 @@ import (
 
 type gcpProvider struct{}
 
-func newGCPProvider() *cloudprovider {
-	return new(gcpProvider)
+func newGCPProvider() cloudprovider {
+	return gcpProvider{}
 }
 
-func (p *gcpProvider) probe(r chan *CloudConfig) {
+func (p gcpProvider) probe(r chan *CloudConfig) {
 	if !gcpmetadata.OnGCE() {
 		return
 	}
