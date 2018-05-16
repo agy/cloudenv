@@ -1,6 +1,7 @@
 package cloudenv
 
 import (
+	"context"
 	"strings"
 
 	gcpmetadata "cloud.google.com/go/compute/metadata"
@@ -12,30 +13,37 @@ func newGCPProvider() cloudprovider {
 	return gcpProvider{}
 }
 
-func (p gcpProvider) probe(r chan *CloudConfig) {
-	if !gcpmetadata.OnGCE() {
+func (p gcpProvider) probe(ctx context.Context, r chan *CloudConfig) {
+	select {
+	case <-ctx.Done():
+		return
+	default:
+		if !gcpmetadata.OnGCE() {
+			return
+		}
+
+		cfg := new(CloudConfig)
+
+		cfg.Provider = "gcp"
+
+		zone, _ := gcpmetadata.Zone()
+		cfg.AZ = zone
+
+		cfg.Region = regionFromZone(zone)
+
+		projectID, _ := gcpmetadata.ProjectID()
+		cfg.AccountID = projectID
+
+		instanceID, _ := gcpmetadata.InstanceID()
+		cfg.InstanceID = instanceID
+
+		image, _ := gcpmetadata.Get("instance/image")
+		cfg.Image = image
+
+		r <- cfg
+
 		return
 	}
-
-	cfg := new(CloudConfig)
-
-	cfg.Provider = "gcp"
-
-	zone, _ := gcpmetadata.Zone()
-	cfg.AZ = zone
-
-	cfg.Region = regionFromZone(zone)
-
-	projectID, _ := gcpmetadata.ProjectID()
-	cfg.AccountID = projectID
-
-	instanceID, _ := gcpmetadata.InstanceID()
-	cfg.InstanceID = instanceID
-
-	image, _ := gcpmetadata.Get("instance/image")
-	cfg.Image = image
-
-	r <- cfg
 
 	return
 }
