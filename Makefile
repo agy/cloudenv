@@ -1,5 +1,9 @@
+GOOS ?= linux
+GOARCH ?= amd64
+
+
 bin/cloudenv: cmd/cloudenv/main.go vet test fmt
-	go build -o $@ cmd/cloudenv/main.go
+	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $@ cmd/cloudenv/main.go
 
 .PHONY: vet
 vet:

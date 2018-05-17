@@ -2,6 +2,7 @@ package cloudenv
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -29,6 +30,10 @@ type cloudproviders struct {
 
 // Provider is a function which adds to the list of cloud providers
 type Provider func(*cloudproviders)
+
+func (c CloudConfig) String() string {
+	return fmt.Sprintf("%s,%s,%s,%s,%s,%s", c.Provider, c.Region, c.AccountID, c.AZ, c.InstanceID, c.Image)
+}
 
 // AWS appends AWS to the list of providers
 func AWS() Provider {
