@@ -44,8 +44,6 @@ func (p gcpProvider) probe(ctx context.Context, r chan *CloudConfig) {
 
 		return
 	}
-
-	return
 }
 
 func regionFromZone(z string) string {

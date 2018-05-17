@@ -47,8 +47,6 @@ func (p fakeProvider) probe(ctx context.Context, r chan *CloudConfig) {
 
 		return
 	}
-
-	return
 }
 
 func TestAWS(t *testing.T) {

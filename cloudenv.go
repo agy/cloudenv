@@ -27,6 +27,7 @@ type cloudproviders struct {
 	providers []cloudprovider
 }
 
+// Provider is a function which adds to the list of cloud providers
 type Provider func(*cloudproviders)
 
 // AWS appends AWS to the list of providers
@@ -87,6 +88,4 @@ func Discover(timeout time.Duration, providers ...Provider) *CloudConfig {
 	case <-ticker.C:
 		return cfg
 	}
-
-	return cfg
 }

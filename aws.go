@@ -43,6 +43,4 @@ func (p awsProvider) probe(ctx context.Context, r chan *CloudConfig) {
 
 		return
 	}
-
-	return
 }
