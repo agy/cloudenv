@@ -30,6 +30,11 @@ func (p awsProvider) probe(ctx context.Context, r chan *CloudConfig) {
 			return
 		}
 
+		iam, err := metadata.IAMInfo()
+		if err != nil {
+			return
+		}
+
 		cfg := new(CloudConfig)
 
 		cfg.Provider = "aws"
@@ -38,6 +43,7 @@ func (p awsProvider) probe(ctx context.Context, r chan *CloudConfig) {
 		cfg.AccountID = doc.AccountID
 		cfg.InstanceID = doc.InstanceID
 		cfg.Image = doc.ImageID
+		cfg.InstanceProfile = iam.InstanceProfileArn
 
 		r <- cfg
 

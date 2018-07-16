@@ -8,12 +8,13 @@ import (
 )
 
 const (
-	fakeProviderName = "fake"
-	fakeAZ           = "az"
-	fakeRegion       = "region"
-	fakeAccountID    = "accountid"
-	fakeInstanceID   = "instanceid"
-	fakeImage        = "imageid"
+	fakeProviderName    = "fake"
+	fakeAZ              = "az"
+	fakeRegion          = "region"
+	fakeAccountID       = "accountid"
+	fakeInstanceID      = "instanceid"
+	fakeImage           = "imageid"
+	fakeInstanceProfile = "instanceprofile"
 )
 
 func addFakeProvider() Provider {
@@ -42,6 +43,7 @@ func (p fakeProvider) probe(ctx context.Context, r chan *CloudConfig) {
 		cfg.AccountID = fakeAccountID
 		cfg.InstanceID = fakeInstanceID
 		cfg.Image = fakeImage
+		cfg.InstanceProfile = fakeInstanceProfile
 
 		r <- cfg
 
@@ -93,12 +95,13 @@ func TestDiscover(t *testing.T) {
 			Provider: addFakeProvider(),
 			Timeout:  1 * time.Second,
 			Expected: &CloudConfig{
-				Provider:   fakeProviderName,
-				AZ:         fakeAZ,
-				Region:     fakeRegion,
-				AccountID:  fakeAccountID,
-				InstanceID: fakeInstanceID,
-				Image:      fakeImage,
+				Provider:        fakeProviderName,
+				AZ:              fakeAZ,
+				Region:          fakeRegion,
+				AccountID:       fakeAccountID,
+				InstanceID:      fakeInstanceID,
+				Image:           fakeImage,
+				InstanceProfile: fakeInstanceProfile,
 			},
 		},
 		{
@@ -106,12 +109,13 @@ func TestDiscover(t *testing.T) {
 			Provider: addFakeProvider(),
 			Timeout:  1,
 			Expected: &CloudConfig{
-				Provider:   fakeProviderName,
-				AZ:         fakeAZ,
-				Region:     fakeRegion,
-				AccountID:  fakeAccountID,
-				InstanceID: fakeInstanceID,
-				Image:      fakeImage,
+				Provider:        fakeProviderName,
+				AZ:              fakeAZ,
+				Region:          fakeRegion,
+				AccountID:       fakeAccountID,
+				InstanceID:      fakeInstanceID,
+				Image:           fakeImage,
+				InstanceProfile: fakeInstanceProfile,
 			},
 		},
 		{
@@ -119,12 +123,13 @@ func TestDiscover(t *testing.T) {
 			Provider: addFakeProvider(),
 			Timeout:  0,
 			Expected: &CloudConfig{
-				Provider:   fakeProviderName,
-				AZ:         fakeAZ,
-				Region:     fakeRegion,
-				AccountID:  fakeAccountID,
-				InstanceID: fakeInstanceID,
-				Image:      fakeImage,
+				Provider:        fakeProviderName,
+				AZ:              fakeAZ,
+				Region:          fakeRegion,
+				AccountID:       fakeAccountID,
+				InstanceID:      fakeInstanceID,
+				Image:           fakeImage,
+				InstanceProfile: fakeInstanceProfile,
 			},
 		},
 		{
@@ -132,12 +137,13 @@ func TestDiscover(t *testing.T) {
 			Provider: addFakeProvider(),
 			Timeout:  -1,
 			Expected: &CloudConfig{
-				Provider:   fakeProviderName,
-				AZ:         fakeAZ,
-				Region:     fakeRegion,
-				AccountID:  fakeAccountID,
-				InstanceID: fakeInstanceID,
-				Image:      fakeImage,
+				Provider:        fakeProviderName,
+				AZ:              fakeAZ,
+				Region:          fakeRegion,
+				AccountID:       fakeAccountID,
+				InstanceID:      fakeInstanceID,
+				Image:           fakeImage,
+				InstanceProfile: fakeInstanceProfile,
 			},
 		},
 		{

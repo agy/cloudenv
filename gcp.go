@@ -40,6 +40,9 @@ func (p gcpProvider) probe(ctx context.Context, r chan *CloudConfig) {
 		image, _ := gcpmetadata.Get("instance/image")
 		cfg.Image = image
 
+		serviceAccount, _ := gcpmetadata.Get("instance/service-accounts/default/email")
+		cfg.InstanceProfile = serviceAccount
+
 		r <- cfg
 
 		return

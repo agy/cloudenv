@@ -12,12 +12,13 @@ const (
 
 // CloudConfig stores the cloud provider's config
 type CloudConfig struct {
-	Provider   string
-	Region     string
-	AccountID  string
-	AZ         string
-	InstanceID string
-	Image      string
+	Provider        string
+	Region          string
+	AccountID       string
+	AZ              string
+	InstanceID      string
+	InstanceProfile string
+	Image           string
 }
 
 type cloudprovider interface {
@@ -32,7 +33,7 @@ type cloudproviders struct {
 type Provider func(*cloudproviders)
 
 func (c CloudConfig) String() string {
-	return fmt.Sprintf("%s,%s,%s,%s,%s,%s", c.Provider, c.Region, c.AccountID, c.AZ, c.InstanceID, c.Image)
+	return fmt.Sprintf("%s,%s,%s,%s,%s,%s,%s", c.Provider, c.Region, c.AccountID, c.AZ, c.InstanceID, c.Image, c.InstanceProfile)
 }
 
 // AWS appends AWS to the list of providers
